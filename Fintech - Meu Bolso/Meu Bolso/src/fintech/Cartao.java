@@ -1,40 +1,41 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package fintech;
 
-import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+//Classe que representa um Cartão vinculado a uma conta bancária.
 public class Cartao {
-    public Long id;
+    // ATRIBUTOS
+    public int id;
     public String numeroCartao;
     public String nomeTitular;
-    public String cvv;
+    public String cvv;      // Código de segurança
     public LocalDate dataValidade;
-    public String tipoCartao;
-    public String bandeira;
-    public BigDecimal limiteTotal;
+    public String tipoCartao;       // Ex: CRÉDITO, DÉBITO
+    public String bandeira;     // Ex: VISA, MASTERCARD
+    public BigDecimal limiteTotal;      // Usando BigDecimal para precisão financeira
     public BigDecimal limiteDisponivel;
     public boolean bloqueado;
     public boolean virtual;
-    public Conta conta;
+    public Conta conta;     // ASSOCIAÇÃO: O cartão pertence a uma conta específica
 
+    // CONSTRUTOR PADRÃO
     public Cartao() {
     }
 
+    // CONSTRUTOR COM PARÂMETROS
+
+    // Inicializa o cartão com os dados essenciais
     public Cartao(String numeroCartao, String nomeTitular, String tipoCartao, String bandeira, Conta conta) {
         this.numeroCartao = numeroCartao;
         this.nomeTitular = nomeTitular;
         this.tipoCartao = tipoCartao;
         this.bandeira = bandeira;
         this.conta = conta;
-        this.bloqueado = false;
-        this.virtual = false;
+        this.bloqueado = false; // Cartão nasce desbloqueado por padrão
     }
+
+    // MÉTODOS DE NEGÓCIO (AÇÕES DO CARTÃO)
 
     public void bloquearCartao() {
         System.out.println("Executando bloquearCartao() - Bloqueando cartão: " + this.numeroCartao);
@@ -45,9 +46,7 @@ public class Cartao {
     }
 
     public void realizarPagamento(BigDecimal valor, String estabelecimento) {
-        PrintStream var10000 = System.out;
-        String var10001 = String.valueOf(valor);
-        var10000.println("Executando realizarPagamento() - Realizando pagamento de R$" + var10001 + " em: " + estabelecimento);
+        System.out.println("Executando realizarPagamento() - Realizando pagamento de R$" + valor + " em: " + estabelecimento);
     }
 
     public void consultarFatura() {
