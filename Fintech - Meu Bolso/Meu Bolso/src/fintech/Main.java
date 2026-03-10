@@ -1,7 +1,7 @@
 //
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
-//
+// Teste para compartilhar
 
 package fintech;
 
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Main {
-    public static void main(String[] args) {
+    static void main() {
         System.out.println("========================================");
         System.out.println("        SISTEMA FINTECH - DEMO          ");
         System.out.println("========================================");
