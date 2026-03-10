@@ -20,12 +20,12 @@ public class Main {
         endereco.buscarEnderecoPorCep("01001-000");
         endereco.atualizarEndereco();
         System.out.println("\n--- USUÁRIO ---");
-        Usuario usuario = new Usuario("João Silva", "123.456.789-00", "joao@email.com", "senha123");
+        Conta minhaConta = new Conta();
+        Usuario usuario = new Usuario("João Silva", "123.456.789-00", "joao@email.com", "senha123", minhaConta);
         usuario.endereco = endereco;
         usuario.cadastrar();
         usuario.atualizarDados();
         usuario.alterarSenha("novaSenha456");
-        usuario.listarContas();
         usuario.bloquearUsuario();
         usuario.ativarUsuario();
         System.out.println("\n--- LOGIN ---");
