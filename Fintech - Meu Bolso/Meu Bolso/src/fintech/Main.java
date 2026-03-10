@@ -1,0 +1,96 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+package fintech;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("========================================");
+        System.out.println("        SISTEMA FINTECH - DEMO          ");
+        System.out.println("========================================");
+        System.out.println("\n--- ENDEREÇO ---");
+        Endereco endereco = new Endereco("Rua das Flores", "123", "Centro", "São Paulo", "SP", "01001-000");
+        endereco.validarCep();
+        endereco.buscarEnderecoPorCep("01001-000");
+        endereco.atualizarEndereco();
+        System.out.println("\n--- USUÁRIO ---");
+        Usuario usuario = new Usuario("João Silva", "123.456.789-00", "joao@email.com", "senha123");
+        usuario.endereco = endereco;
+        usuario.cadastrar();
+        usuario.atualizarDados();
+        usuario.alterarSenha("novaSenha456");
+        usuario.listarContas();
+        usuario.bloquearUsuario();
+        usuario.ativarUsuario();
+        System.out.println("\n--- LOGIN ---");
+        Login login = new Login("joao@email.com", "senha123");
+        login.doLogin();
+        login.validarToken("token-abc-123");
+        login.resetarSenha("joao@email.com");
+        login.doLogout();
+        System.out.println("\n--- CONTA ---");
+        Conta contaOrigem = new Conta("0001-1", "0001", "CORRENTE", usuario);
+        Conta contaDestino = new Conta("0002-2", "0001", "POUPANCA", usuario);
+        contaOrigem.depositar(new BigDecimal("1000.00"));
+        contaOrigem.sacar(new BigDecimal("200.00"));
+        contaOrigem.consultarSaldo();
+        contaOrigem.transferir(new BigDecimal("300.00"), contaDestino);
+        contaOrigem.atualizarLimite(new BigDecimal("5000.00"));
+        contaOrigem.encerrarConta();
+        System.out.println("\n--- CARTÃO ---");
+        Cartao cartao = new Cartao("4111 1111 1111 1111", "JOÃO SILVA", "CREDITO", "VISA", contaOrigem);
+        cartao.desbloquearCartao();
+        cartao.realizarPagamento(new BigDecimal("150.00"), "Mercado Livre");
+        cartao.consultarFatura();
+        cartao.ajustarLimite(new BigDecimal("3000.00"));
+        cartao.gerarCartaoVirtual();
+        cartao.bloquearCartao();
+        cartao.cancelarCartao();
+        System.out.println("\n--- TRANSAÇÃO ---");
+        Transacao transacao = new Transacao("TED", new BigDecimal("500.00"), contaOrigem, contaDestino);
+        transacao.codigoTransacao = "TXN-2024-001";
+        transacao.processarTransacao();
+        transacao.consultarStatus();
+        transacao.gerarComprovante();
+        transacao.cancelarTransacao();
+        transacao.estornarTransacao();
+        System.out.println("\n--- PIX ---");
+        Pix pix = new Pix("123.456.789-00", "joaodestino@email.com", new BigDecimal("250.00"), contaOrigem);
+        pix.endToEndId = "E9999901012024010112345678901234";
+        pix.enviarPix();
+        pix.gerarQrCode();
+        pix.consultarStatus();
+        pix.agendarPix(LocalDateTime.now().plusDays(1L));
+        pix.cancelarPix();
+        pix.devolverPix(new BigDecimal("250.00"));
+        pix.receberPix();
+        System.out.println("\n--- INVESTIMENTO ---");
+        Investimento investimento = new Investimento("CDB", new BigDecimal("5000.00"), LocalDate.now().plusYears(1L), usuario);
+        investimento.codigoInvestimento = "INV-2024-001";
+        investimento.aplicar(new BigDecimal("5000.00"));
+        investimento.calcularRendimento();
+        investimento.consultarExtrato();
+        investimento.simularResgate(LocalDate.now().plusMonths(6L));
+        investimento.renovarInvestimento(LocalDate.now().plusYears(2L));
+        investimento.resgatar();
+        System.out.println("\n--- EMPRÉSTIMO ---");
+        Emprestimo emprestimo = new Emprestimo(new BigDecimal("10000.00"), 12, "Reforma residencial", usuario);
+        emprestimo.codigoEmprestimo = "EMP-2024-001";
+        emprestimo.solicitarEmprestimo();
+        emprestimo.simularEmprestimo(new BigDecimal("10000.00"), 12);
+        emprestimo.aprovarEmprestimo();
+        emprestimo.pagarParcela(1);
+        emprestimo.calcularSaldoDevedor();
+        emprestimo.quitarEmprestimo();
+        emprestimo.reprovarEmprestimo("Score de crédito insuficiente");
+        System.out.println("\n========================================");
+        System.out.println("         FIM DA EXECUÇÃO - FINTECH       ");
+        System.out.println("========================================");
+    }
+}
