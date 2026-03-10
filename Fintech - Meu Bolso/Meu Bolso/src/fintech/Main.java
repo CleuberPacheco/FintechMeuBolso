@@ -2,7 +2,6 @@ package fintech;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Main {
     static void main() {
@@ -55,16 +54,6 @@ public class Main {
         transacao.gerarComprovante();
         transacao.cancelarTransacao();
         transacao.estornarTransacao();
-        System.out.println("\n--- PIX ---");
-        Pix pix = new Pix("123.456.789-00", "joaodestino@email.com", new BigDecimal("250.00"), contaOrigem);
-        pix.endToEndId = "E9999901012024010112345678901234";
-        pix.enviarPix();
-        pix.gerarQrCode();
-        pix.consultarStatus();
-        pix.agendarPix(LocalDateTime.now().plusDays(1L));
-        pix.cancelarPix();
-        pix.devolverPix(new BigDecimal("250.00"));
-        pix.receberPix();
         System.out.println("\n--- INVESTIMENTO ---");
         Investimento investimento = new Investimento("CDB", new BigDecimal("5000.00"), LocalDate.now().plusYears(1L), usuario);
         investimento.codigoInvestimento = "INV-2024-001";
