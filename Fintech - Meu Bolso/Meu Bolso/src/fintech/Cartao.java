@@ -35,7 +35,7 @@ public class Cartao {
         this.bloqueado = false; // Cartão nasce desbloqueado por padrão
     }
 
-    // MÉTODOS DE NEGÓCIO (AÇÕES DO CARTÃO)
+    // MÉTODOS DE NEGÓCIO (AÇÕES DO CARTÃO) testando
 
     public void bloquearCartao() {
         System.out.println("Executando bloquearCartao() - Bloqueando cartão: " + this.numeroCartao);
