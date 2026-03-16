@@ -1,80 +1,93 @@
 package fintech;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-//teste
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
-    static void main() {
-        System.out.println("========================================");
-        System.out.println("        SISTEMA FINTECH - DEMO          ");
-        System.out.println("========================================");
-        System.out.println("\n--- ENDEREÇO ---");
-        Endereco endereco = new Endereco("Rua das Flores", "123", "Centro", "São Paulo", "SP", "01001-000");
-        endereco.validarCep();
-        endereco.buscarEnderecoPorCep("01001-000");
-        endereco.atualizarEndereco();
-        System.out.println("\n--- USUÁRIO ---");
-        Conta minhaConta = new Conta();
-        Usuario usuario = new Usuario("João Silva", "123.456.789-00", "joao@email.com", "senha123", minhaConta);
-        usuario.endereco = endereco;
-        usuario.cadastrar();
-        usuario.atualizarDados();
-        usuario.alterarSenha("novaSenha456");
-        usuario.bloquearUsuario();
-        usuario.ativarUsuario();
-        System.out.println("\n--- LOGIN ---");
-        Login login = new Login("joao@email.com", "senha123");
-        login.doLogin();
-        login.validarToken("token-abc-123");
-        login.resetarSenha("joao@email.com");
-        login.doLogout();
-        System.out.println("\n--- CONTA ---");
-        Conta contaOrigem = new Conta("0001-1", "0001", "CORRENTE", usuario);
-        Conta contaDestino = new Conta("0002-2", "0001", "POUPANCA", usuario);
-        contaOrigem.depositar(new BigDecimal("1000.00"));
-        contaOrigem.sacar(new BigDecimal("200.00"));
-        contaOrigem.consultarSaldo();
-        contaOrigem.transferir(new BigDecimal("300.00"), contaDestino);
-        contaOrigem.atualizarLimite(new BigDecimal("5000.00"));
-        contaOrigem.encerrarConta();
-        System.out.println("\n--- CARTÃO ---");
-        Cartao cartao = new Cartao("4111 1111 1111 1111", "JOÃO SILVA", "CREDITO", "VISA", contaOrigem);
-        cartao.desbloquearCartao();
-        cartao.realizarPagamento(new BigDecimal("150.00"), "Mercado Livre");
-        cartao.consultarFatura();
-        cartao.ajustarLimite(new BigDecimal("3000.00"));
-        cartao.gerarCartaoVirtual();
-        cartao.bloquearCartao();
-        cartao.cancelarCartao();
-        System.out.println("\n--- TRANSAÇÃO ---");
-        Transacao transacao = new Transacao("TED", new BigDecimal("500.00"), contaOrigem, contaDestino);
-        transacao.codigoTransacao = "TXN-2024-001";
-        transacao.processarTransacao();
-        transacao.consultarStatus();
-        transacao.gerarComprovante();
-        transacao.cancelarTransacao();
-        transacao.estornarTransacao();
-        System.out.println("\n--- INVESTIMENTO ---");
-        Investimento investimento = new Investimento("CDB", new BigDecimal("5000.00"), LocalDate.now().plusYears(1L), usuario);
-        investimento.codigoInvestimento = "INV-2024-001";
-        investimento.aplicar(new BigDecimal("5000.00"));
-        investimento.calcularRendimento();
-        investimento.consultarExtrato();
-        investimento.simularResgate(LocalDate.now().plusMonths(6L));
-        investimento.renovarInvestimento(LocalDate.now().plusYears(2L));
-        investimento.resgatar();
-        System.out.println("\n--- EMPRÉSTIMO ---");
-        Emprestimo emprestimo = new Emprestimo(new BigDecimal("10000.00"), 12, "Reforma residencial", usuario);
-        emprestimo.codigoEmprestimo = "EMP-2024-001";
-        emprestimo.solicitarEmprestimo();
-        emprestimo.simularEmprestimo(new BigDecimal("10000.00"), 12);
-        emprestimo.aprovarEmprestimo();
-        emprestimo.pagarParcela(1);
-        emprestimo.calcularSaldoDevedor();
-        emprestimo.quitarEmprestimo();
-        emprestimo.reprovarEmprestimo("Score de crédito insuficiente");
-        System.out.println("\n========================================");
-        System.out.println("         FIM DA EXECUÇÃO - FINTECH       ");
-        System.out.println("========================================");
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        List<Usuario> listaUsuarios = new ArrayList<>();
+        int escolha = -1;
+
+        while (escolha != 0) {
+            System.out.println("\n========================================");
+            System.out.printf("%-10s %s %n", "", "FINTECH - MEU BOLSO");
+            System.out.println("========================================");
+            System.out.println("1 - Cadastrar Usuario");
+            System.out.println("2 - Acessar usuários");
+            System.out.println("3 - Criar conta");
+            System.out.println("4 - Saque");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha sua opção: ");
+
+            escolha = entrada.nextInt();
+
+            switch (escolha) {
+                case 1:
+                    Usuario novo = UsuarioView.cadastrarUsuario();
+                    novo.setId(listaUsuarios.size() + 1);
+                    listaUsuarios.add(novo);
+                    System.out.println("\n>>> Usuário cadastrado com sucesso!");
+                    break;
+
+                case 2:
+                    if (listaUsuarios.isEmpty()) {
+                        System.out.println("\n[ALERTA] Nenhum usuário no sistema. Use a opção 1.");
+                    } else {
+                        System.out.println("\n--- RELATÓRIO DE CLIENTES ---");
+                        for (Usuario u : listaUsuarios) {
+                            String status = (u.getConta() != null) ? "Saldo: R$ " + u.getConta().getSaldo() : "Sem Conta";
+                            System.out.println("ID: " + u.getId() + " | Nome: " + u.getNome() + " | " + status);
+                        }
+                    }
+                    break;
+
+                case 3:
+                    if (listaUsuarios.isEmpty()) {
+                        System.out.println("\n[ERRO] Não há usuários para vincular uma conta!");
+                    } else {
+                        // Vincula ao último cadastrado para facilitar o teste
+                        Usuario selecionado = listaUsuarios.get(listaUsuarios.size() - 1);
+
+                        if (selecionado.getConta() != null) {
+                            System.out.println("\n[AVISO] " + selecionado.getNome() + " já possui conta.");
+                        } else {
+                            Conta nova = ContaView.prepararConta();
+                            selecionado.setConta(nova);
+                            System.out.println("\n>>> Conta vinculada a " + selecionado.getNome());
+                        }
+                    }
+                    break;
+
+                case 4: // SACAR
+                    if (listaUsuarios.isEmpty()) {
+                        System.out.println("\n[ALERTA] Nenhum usuário cadastrado.");
+                    } else {
+                        // 1. Escolher o usuário
+                        System.out.println("\n--- Realizar Saque ---");
+                        for (int i = 0; i < listaUsuarios.size(); i++) {
+                            System.out.println(i + " - " + listaUsuarios.get(i).getNome());
+                        }
+                        System.out.print("Selecione o usuário: ");
+                        int index = entrada.nextInt();
+                        Usuario selecionado = listaUsuarios.get(index);
+
+                        // 2. Verificar se tem conta
+                        if (selecionado.getConta() == null) {
+                            System.out.println("[ERRO] Este usuário não possui uma conta cadastrada.");
+                        } else {
+                            // 3. Pedir o valor e sacar (O Polimorfismo acontece aqui!)
+                            System.out.print("Valor do saque: R$ ");
+                            double valorSaque = entrada.nextDouble();
+
+                            // O Java decide sozinho se usa o sacar() da CC ou da CP!
+                            selecionado.getConta().sacar(valorSaque);
+                        }
+                    }
+                    break;
+            }
+        }
+        entrada.close();
     }
 }

@@ -1,48 +1,80 @@
 package fintech;
 
 public class Endereco {
-
-    // ATRIBUTOS
-    public int id;
-    public String logradouro;       // Nome da rua, avenida, praça, etc. (ex: "Av. Paulista")
-    public String numero;           // Número do imóvel
-    public String complemento;      // Informação adicional (ex: "Apto 101", "Bloco B")
-    public String bairro;           // Bairro onde o imóvel está localizado
-    public String cidade;           // Município do endereço
-    public String estado;           // Unidade Federativa (UF) ou estado (ex: "SP", "RJ")
-    public String cep;              // Código de Endereçamento Postal
-    public String pais;             // País de localização
-
-    // CONSTRUTOR PADRÃO
+    //Atributos
+    private String logradouro;
+    private int numero;
+    private String complemento;
+    private String cep;
+    private String cidade;
+    private String estado;
+    //CONSTRUTOR PADRÃO
     public Endereco() {
     }
-
-    // CONSTRUTOR COM PARÂMETROS
-    public Endereco(String logradouro, String numero, String bairro, String cidade, String estado, String cep) {
+    //CONSTRUTOR COM PARAMETROS
+    public Endereco(String logradouro, int numero, String complemento, String cep, String cidade, String estado) {
         this.logradouro = logradouro;
         this.numero = numero;
-        this.bairro = bairro;
+        this.complemento = complemento;
+        this.cep = cep;
         this.cidade = cidade;
         this.estado = estado;
+    }
+    //GETTER AND SETTER
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
         this.cep = cep;
-        this.pais = "Brasil"; // Define um valor padrão para facilitar o cadastro de clientes locais
     }
 
-    //Valida se o formato do CEP informado é válido (ex: possui 8 dígitos, não contém letras).
-    public void validarCep() {
-        // Lógica simulada de validação
-        System.out.println("Executando validarCep() - Validando CEP: " + this.cep);
+    public String getCidade() {
+        return cidade;
     }
 
-    // Realiza a busca dos dados do endereço a partir de um CEP fornecido.
-    public void buscarEnderecoPorCep(String cep) {
-        // Lógica simulada de integração com API de CEP
-        System.out.println("Executando buscarEnderecoPorCep() - Buscando endereço para o CEP: " + cep);
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    // Atualiza as informações do endereço no sistema ou no banco de dados.
-    public void atualizarEndereco() {
-        // Lógica simulada de atualização (ex: um comando UPDATE no banco de dados)
-        System.out.println("Executando atualizarEndereco() - Atualizando endereço: " + this.logradouro + ", " + this.numero + " - " + this.cidade);
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    //METODOS
+    public String getEnderecoCompleto() {
+        return this.logradouro + ","
+                + this.numero + ","
+                + this.complemento + ","
+                + this.cep + "," +
+                this.cidade + ","
+                + this.estado;
     }
 }

@@ -1,63 +1,90 @@
 package fintech;
-
 import java.time.LocalDate;
-
-// Representa o cliente final da Fintech.
-// Esta classe armazena dados pessoais e a associação com a conta bancária.
-
+import java.time.Period;
+//Classe inicial de identificação de usuário
 public class Usuario {
     // ATRIBUTOS (DADOS DO USUÁRIO)
-    public int id;
-    public String nome;
-    public String cpf;
-    public String email;
-    public String telefone;
-    public String senha;
-    public LocalDate dataNascimento;
-    public LocalDate dataCadastro;
-    public String status;      // Ex: "ATIVO", "BLOQUEADO"
-    public Endereco endereco;  // Associação: O usuário possui um endereço
-    public Conta contas;       // Associação: O usuário possui uma conta vinculada
+    private int id;
+    private String nome;
+    private LocalDate dataNascimento;
+    private String cpf;
+    private String email;
+    private String telefone;
+    private Endereco endereco;  //buscado informações da classe Endereço
+    private LocalDate dataCadastro;
+    private Conta conta;
 
     // CONSTRUTOR PADRÃO
     public Usuario() {
     }
-
     // CONSTRUTOR COM PARÂMETROS
 
-    // Facilita a criação do usuário já com os dados principais e a conta
-    public Usuario(String nome, String cpf, String email, String senha, Conta conta) {
+    public Usuario(int id, String nome, LocalDate dataNascimento, String cpf, String email, String telefone, Endereco endereco, LocalDate dataCadastro) {
+        this.id = id;
         this.nome = nome;
+        this.dataNascimento = dataNascimento;
         this.cpf = cpf;
         this.email = email;
-        this.senha = senha;
-        this.dataCadastro = LocalDate.now(); // Define a data de cadastro como a data atual
-        this.status = "ATIVO";              // Todo usuário novo começa como ATIVO
-        this.contas = conta;                 // Vincula a conta passada no parâmetro ao atributo 'contas'
+        this.telefone = telefone;
+        this.endereco = endereco;
+        this.dataCadastro = dataCadastro;
+
+    }
+    //GETTER AND SETTER
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+    public String getCpf() {
+        return cpf;
+    }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getTelefone() {
+        return telefone;
+    }
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+    public Endereco getEndereco() {
+        return endereco;
+    }
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+    public LocalDate getDataCadastro() {
+        return dataCadastro;
+    }
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
-    // MÉTODOS DE AÇÃO (REGRAS DE NEGÓCIO)
 
-    public void cadastrar() {
-        System.out.println("Executando cadastrar() - Cadastrando novo usuário: " + this.nome);
-    }
-
-    public void atualizarDados() {
-        System.out.println("Executando atualizarDados() - Atualizando dados do usuário: " + this.nome);
-    }
-
-    public void alterarSenha(String novaSenha) {
-        // Futuramente: this.senha = novaSenha;
-        System.out.println("Executando alterarSenha() - Alterando senha do usuário: " + this.nome);
-    }
-
-    public void bloquearUsuario() {
-        // Futuramente: this.status = "BLOQUEADO";
-        System.out.println("Executando bloquearUsuario() - Bloqueando usuário: " + this.nome);
-    }
-
-    public void ativarUsuario() {
-        // Futuramente: this.status = "ATIVO";
-        System.out.println("Executando ativarUsuario() - Ativando usuário: " + this.nome);
+    public Conta getConta() { return conta; }
+    public void setConta(Conta conta) { this.conta = conta; }
+    // MÉTODOS
+    public int getIdade() {
+        return Period.between(this.dataNascimento, LocalDate.now()).getYears();
     }
 }
